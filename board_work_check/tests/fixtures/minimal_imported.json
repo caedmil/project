@@ -1,0 +1,60 @@
+{
+  "boardName": "Импортированная доска",
+  "version": 1,
+  "objects": [
+    {
+      "type": "frame",
+      "id": "frame-1",
+      "parentId": null,
+      "labelText": "Лекция 1",
+      "position": { "x": 0, "y": 0 },
+      "width": 800,
+      "height": 600,
+      "bounds": { "x": 0, "y": 0, "width": 800, "height": 600, "type": 1 },
+      "created": { "a": 1, "t": 1700100000000 },
+      "updated": null
+    },
+    {
+      "type": "sticker",
+      "id": "sticker-1",
+      "parentId": "frame-1",
+      "position": { "x": 20, "y": 20 },
+      "width": 200,
+      "height": 100,
+      "created": { "a": 1, "t": 1700100000000 },
+      "updated": { "a": 2, "t": 1700186400000 },
+      "reactions": [],
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w1\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p1\",\"children\":[{\"text\":\"Ответ студента\"}]}]}]"
+      }
+    },
+    {
+      "type": "file",
+      "id": "file-1",
+      "parentId": "frame-1",
+      "position": { "x": 20, "y": 150 },
+      "fileName": "method.docx",
+      "displayFileName": "Методичка.docx",
+      "fileSize": 20000,
+      "created": { "a": 1, "t": 1700100000000 },
+      "updated": null,
+      "bounds": { "x": 20, "y": 150, "width": 300, "height": 200, "type": 1 }
+    },
+    {
+      "type": "sticker",
+      "id": "sticker-2",
+      "parentId": null,
+      "position": { "x": 400, "y": 20 },
+      "width": 200,
+      "height": 100,
+      "created": { "a": 1, "t": 1700100000000 },
+      "updated": null,
+      "reactions": [],
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w2\",\"children\":[{\"type\":\"initial\",\"key\":\"i2\",\"children\":[{\"text\":\"\"}]}]}]"
+      }
+    }
+  ],
+  "comments": [],
+  "backgroundColor": 16119285
+}

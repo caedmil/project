@@ -1,0 +1,174 @@
+{
+  "boardName": "Тестовая доска: Практика",
+  "version": 1,
+  "objects": [
+    {
+      "type": "frame",
+      "id": "frame-1",
+      "parentId": null,
+      "labelText": "Практика 18-20",
+      "position": { "x": 0, "y": 0 },
+      "width": 1000,
+      "height": 800,
+      "bounds": { "x": 0, "y": 0, "width": 1000, "height": 800, "type": 1 },
+      "created": { "a": 1000, "t": 1700000000000 },
+      "updated": null
+    },
+    {
+      "type": "frame",
+      "id": "frame-2",
+      "parentId": null,
+      "labelText": "Васимова",
+      "position": { "x": 1200, "y": 0 },
+      "width": 900,
+      "height": 700,
+      "bounds": { "x": 1200, "y": 0, "width": 900, "height": 700, "type": 1 },
+      "created": { "a": 1000, "t": 1700003600000 },
+      "updated": null
+    },
+    {
+      "type": "table",
+      "id": "table-1",
+      "parentId": "frame-1",
+      "position": { "x": 10, "y": 10 },
+      "created": { "a": 1000, "t": 1700007200000 },
+      "updated": null,
+      "bounds": { "x": 10, "y": 10, "width": 600, "height": 200, "type": 1 }
+    },
+    {
+      "type": "table-cell",
+      "id": "cell-1",
+      "parentId": "table-1",
+      "documentId": "table-1",
+      "rowId": 0,
+      "columnId": 0,
+      "position": { "x": 10, "y": 10 },
+      "created": { "a": 1000, "t": 1700010800000 },
+      "updated": { "a": 2000, "t": 1700014400000 },
+      "bounds": { "x": 10, "y": 10, "width": 200, "height": 60, "type": 1 },
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w1\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p1\",\"children\":[{\"text\":\"Тема 1\"}]}]}]"
+      }
+    },
+    {
+      "type": "table-cell",
+      "id": "cell-2",
+      "parentId": "table-1",
+      "documentId": "table-1",
+      "rowId": 1,
+      "columnId": 0,
+      "position": { "x": 10, "y": 70 },
+      "created": { "a": 1000, "t": 1700014400000 },
+      "updated": { "a": 2000, "t": 1700018000000 },
+      "bounds": { "x": 10, "y": 70, "width": 200, "height": 60, "type": 1 },
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w2\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p2\",\"children\":[{\"text\":\"Тема 2\"}]}]}]"
+      }
+    },
+    {
+      "type": "table-cell",
+      "id": "cell-3",
+      "parentId": "table-1",
+      "documentId": "table-1",
+      "rowId": 2,
+      "columnId": 0,
+      "position": { "x": 10, "y": 130 },
+      "created": { "a": 1000, "t": 1700018000000 },
+      "updated": { "a": 2000, "t": 1700021600000 },
+      "bounds": { "x": 10, "y": 130, "width": 200, "height": 60, "type": 1 },
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w3\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p3\",\"children\":[{\"text\":\"Тема 3\"}]}]}]"
+      }
+    },
+    {
+      "type": "sticker",
+      "id": "sticker-1",
+      "parentId": "frame-1",
+      "position": { "x": 100, "y": 300 },
+      "width": 200,
+      "height": 120,
+      "created": { "a": 1000, "t": 1700021600000 },
+      "updated": null,
+      "reactions": [],
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w4\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p4\",\"children\":[{\"text\":\"Ответ на задание\"}]}]}]"
+      }
+    },
+    {
+      "type": "sticker",
+      "id": "sticker-2",
+      "parentId": "frame-1",
+      "position": { "x": 350, "y": 300 },
+      "width": 200,
+      "height": 120,
+      "created": { "a": 1000, "t": 1700025200000 },
+      "updated": null,
+      "reactions": [],
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w5\",\"children\":[{\"type\":\"initial\",\"key\":\"i5\",\"children\":[{\"text\":\"\"}]}]}]"
+      }
+    },
+    {
+      "type": "drawing",
+      "id": "drawing-1",
+      "parentId": "frame-1",
+      "position": { "x": 500, "y": 400 },
+      "path": "0,0,100,0,100,100",
+      "created": { "a": 1000, "t": 1700028800000 },
+      "bounds": { "x": 500, "y": 400, "width": 100, "height": 100, "type": 1 }
+    },
+    {
+      "type": "image",
+      "id": "image-1",
+      "parentId": "frame-2",
+      "position": { "x": 1300, "y": 50 },
+      "width": 400,
+      "height": 300,
+      "name": "screenshot_solution.png",
+      "originalName": "screenshot_solution.png",
+      "created": { "a": 1000, "t": 1700032400000 },
+      "updated": null,
+      "bounds": { "x": 1300, "y": 50, "width": 400, "height": 300, "type": 1 }
+    },
+    {
+      "type": "file",
+      "id": "file-1",
+      "parentId": "frame-2",
+      "position": { "x": 1300, "y": 400 },
+      "fileName": "lecture.docx",
+      "displayFileName": "Лекция.docx",
+      "fileSize": 15000,
+      "created": { "a": 1000, "t": 1700036000000 },
+      "updated": null,
+      "bounds": { "x": 1300, "y": 400, "width": 300, "height": 200, "type": 1 }
+    },
+    {
+      "type": "shape",
+      "id": "shape-1",
+      "parentId": "frame-2",
+      "position": { "x": 1700, "y": 50 },
+      "width": 200,
+      "height": 100,
+      "shapeType": "square",
+      "created": { "a": 1000, "t": 1700039600000 },
+      "updated": { "a": 3000, "t": 1700039840000 },
+      "bounds": { "x": 1700, "y": 50, "width": 200, "height": 100, "type": 1 }
+    },
+    {
+      "type": "simple-text",
+      "id": "text-1",
+      "parentId": "frame-1",
+      "position": { "x": 100, "y": 500 },
+      "width": 300,
+      "height": 80,
+      "created": { "a": 1000, "t": 1700043200000 },
+      "updated": null,
+      "bounds": { "x": 100, "y": 500, "width": 300, "height": 80, "type": 1 },
+      "jsonState": {
+        "children": "[{\"type\":\"wrapper\",\"key\":\"w6\",\"children\":[{\"type\":\"paragraph\",\"key\":\"p61\",\"children\":[{\"text\":\"Первая строка\"}]},{\"type\":\"paragraph\",\"key\":\"p62\",\"children\":[{\"text\":\"Вторая строка\"}]}]}]"
+      }
+    }
+  ],
+  "comments": [],
+  "backgroundColor": 16119285
+}

@@ -1,0 +1,45 @@
+# Конфигурация board-work-check.
+# Файл необязателен: все ключи имеют значения по умолчанию в коде.
+# Передать файл: board-work-check backup.json --config config.yaml
+analysis:
+  # Правка считается «настоящей», если updated.t - created.t > порога.
+  # 5 минут = 300000 мс: защищает от служебных обновлений при импорте.
+  threshold_real_minutes: 5
+
+  # Классификация режима доски по доле самого частого created.t:
+  # доля >= import_share_threshold  -> post_import
+  # доля <= full_share_threshold и уникальных >= unique_created_min -> full
+  # иначе -> mixed
+  import_share_threshold: 0.9
+  full_share_threshold: 0.3
+  unique_created_min: 5
+
+  classification:
+    # Минимум «настоящих» правок для вердикта work_detected.
+    n_during_min: 3
+    # Сколько сильных сигналов нужно для уверенности high.
+    confidence_high_min_signals: 3
+    # С какого количества warnings уверенность падает до low.
+    warnings_low_threshold: 3
+
+  # Таймзона для человекочитаемых дат в отчёте.
+  timezone: "Asia/Yekaterinburg"
+
+  # Имена картинок (без учёта регистра), похожие на фото/скриншот решения,
+  # а не на схему. Влияет только на пояснительный пункт в отчёте.
+  suspicious_image_name_patterns:
+    - "screenshot"
+    - "screen[\\s_-]?shot"
+    - "\\bскрин"
+    - "\\bснимок"
+    - "\\bфото"
+    - "photo"
+    - "\\bimg[\\s_-]?\\d"
+    - "\\bdsc[\\s_-]?\\d"
+    - "whatsapp"
+    - "telegram"
+    - "\\bscan\\b"
+    - "\\bскан"
+    - "решение"
+    - "solution"
+    - "ответ"
