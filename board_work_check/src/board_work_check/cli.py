@@ -17,6 +17,7 @@ import click
 from . import __version__
 from .config import Config, ConfigError
 from .import_detector import detect_import_mode, mode_reason
+from .lessons import analyze_lessons, lesson_report_payload, render_lesson_text
 from .models import ImportMode, ParseResult, Signals, ms_to_iso
 from .parser import ParseError, parse_backup
 from .report import render_json_report, render_text_report
@@ -125,6 +126,21 @@ def _print_diagnostics(
     ),
 )
 @click.option(
+    "--analysis",
+    "analysis_mode",
+    type=click.Choice(["lessons", "board"]),
+    default="lessons",
+    show_default=True,
+    help="Анализ по занятиям (основной) или прежний обзор всей доски.",
+)
+@click.option(
+    "--follow-up-hours",
+    type=click.IntRange(min=0, max=72),
+    default=24,
+    show_default=True,
+    help="Сколько часов после конца пары искать обработку результатов.",
+)
+@click.option(
     "--output",
     "output_format",
     type=click.Choice(["text", "json"]),
@@ -160,6 +176,8 @@ def _print_diagnostics(
 def cli_command(
     path: Path,
     threshold_real_minutes: float | None,
+    analysis_mode: str,
+    follow_up_hours: int,
     output_format: str,
     save_json_path: Path | None,
     config_path: Path | None,
@@ -200,7 +218,32 @@ def cli_command(
     except OSError as exc:
         return _fail(f"ошибка чтения файла: {exc}", EXIT_FILE_ERROR)
 
+    if analysis_mode == "lessons":
+        teacher, lessons = analyze_lessons(
+            parsed, config, follow_up_hours=follow_up_hours
+        )
+        lesson_payload = lesson_report_payload(parsed, teacher, lessons)
+        if output_format == "json":
+            click.echo(json.dumps(lesson_payload, ensure_ascii=False, indent=2))
+        else:
+            click.echo(render_lesson_text(parsed, teacher, lessons))
+        if save_json_path is not None:
+            try:
+                save_json_path.write_text(
+                    json.dumps(lesson_payload, ensure_ascii=False, indent=2),
+                    encoding="utf-8",
+                )
+            except OSError as exc:
+                return _fail(f"не удалось сохранить JSON-отчёт: {exc}", EXIT_FILE_ERROR)
+        if verbose:
+            import_mode = detect_import_mode(parsed.objects, config)
+            _print_diagnostics(
+                parsed, import_mode, compute_signals(parsed, import_mode, config), config
+            )
+        return EXIT_OK
+
     import_mode = detect_import_mode(parsed.objects, config)
+
     signals = compute_signals(parsed, import_mode, config)
     verdict = compute_verdict(
         signals, import_mode, config, is_truncated=parsed.is_truncated

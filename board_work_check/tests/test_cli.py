@@ -1,4 +1,4 @@
-﻿"""Тесты CLI: коды выхода, форматы вывода, сохранение JSON."""
+"""Тесты CLI: коды выхода, форматы вывода, сохранение JSON."""
 
 from __future__ import annotations
 
@@ -13,7 +13,8 @@ def test_text_report_is_default(full_board_path: Path, capsys) -> None:
     captured = capsys.readouterr()
 
     assert code == 0
-    assert "ВЕРДИКТ: работа велась" in captured.out
+    assert "Анализ пар:" in captured.out
+    assert "ВЕРДИКТ" not in captured.out
     assert "Доска: Тестовая доска: Практика" in captured.out
     assert captured.err == ""
 
@@ -25,16 +26,16 @@ def test_json_output_is_valid(full_board_path: Path, capsys) -> None:
     payload = json.loads(captured.out)
 
     assert code == 0
-    assert payload["verdict"]["verdict"] == "work_detected"
-    assert payload["import_mode"]["mode"] == "full"
-    assert payload["signals"]["n_real_edits"] == 3
+    assert payload["board"] == "Тестовая доска: Практика"
+    assert "lessons" in payload
+    assert "verdict" not in payload
 
 
 def test_options_may_precede_path(full_board_path: Path, capsys) -> None:
     code = main(["--no-color", "--output", "text", str(full_board_path)])
 
     assert code == 0
-    assert "ВЕРДИКТ" in capsys.readouterr().out
+    assert "Анализ пар:" in capsys.readouterr().out
 
 
 def test_missing_file_exit_code_2(workdir: Path) -> None:
@@ -65,8 +66,9 @@ def test_truncated_json_exit_code_0(workdir: Path, capsys) -> None:
     payload = json.loads(capsys.readouterr().out)
 
     assert code == 0
-    assert payload["board"]["is_truncated"] is True
-    assert payload["board"]["objects_total"] == 1
+    assert payload["board"] == "cut"
+    assert payload["lessons"] == []
+    assert payload["meta"]["is_truncated"] is True
 
 
 def test_save_json_writes_file(full_board_path: Path, workdir: Path) -> None:
@@ -76,7 +78,8 @@ def test_save_json_writes_file(full_board_path: Path, workdir: Path) -> None:
 
     assert code == 0
     payload = json.loads(target.read_text(encoding="utf-8"))
-    assert payload["verdict"]["verdict"] == "work_detected"
+    assert payload["board"] == "Тестовая доска: Практика"
+    assert "lessons" in payload
 
 
 def test_save_json_bad_directory_exit_code_2(
@@ -88,7 +91,7 @@ def test_save_json_bad_directory_exit_code_2(
 
 
 def test_verbose_keeps_stdout_valid_json(full_board_path: Path, capsys) -> None:
-    code = main(["--verbose", "--output", "json", str(full_board_path)])
+    code = main(["--verbose", "--analysis", "board", "--output", "json", str(full_board_path)])
     captured = capsys.readouterr()
 
     payload = json.loads(captured.out)
@@ -101,7 +104,7 @@ def test_verbose_keeps_stdout_valid_json(full_board_path: Path, capsys) -> None:
 
 def test_threshold_option_changes_signals(full_board_path: Path, capsys) -> None:
     code = main(
-        ["--threshold-real-minutes", "600", "--output", "json", str(full_board_path)]
+        ["--analysis", "board", "--threshold-real-minutes", "600", "--output", "json", str(full_board_path)]
     )
     payload = json.loads(capsys.readouterr().out)
 
@@ -121,7 +124,7 @@ def test_config_option_applied(
     config_path.write_text("analysis:\n  timezone: UTC\n", encoding="utf-8")
 
     code = main(
-        ["--config", str(config_path), "--output", "json", str(full_board_path)]
+        ["--analysis", "board", "--config", str(config_path), "--output", "json", str(full_board_path)]
     )
     payload = json.loads(capsys.readouterr().out)
 
@@ -133,11 +136,11 @@ def test_invalid_config_exit_code_2(full_board_path: Path, workdir: Path) -> Non
     config_path = workdir / "config.yaml"
     config_path.write_text("analysis:\n  threshold_real_minutes: -5\n", encoding="utf-8")
 
-    assert main(["--config", str(config_path), str(full_board_path)]) == 2
+    assert main(["--analysis", "board", "--config", str(config_path), str(full_board_path)]) == 2
 
 
-def test_imported_board_is_post_import(imported_board_path: Path, capsys) -> None:
-    code = main(["--output", "json", str(imported_board_path)])
+def test_imported_board_can_use_legacy_board_analysis(imported_board_path: Path, capsys) -> None:
+    code = main(["--analysis", "board", "--output", "json", str(imported_board_path)])
     payload = json.loads(capsys.readouterr().out)
 
     assert code == 0

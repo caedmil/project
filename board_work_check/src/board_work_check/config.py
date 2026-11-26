@@ -62,6 +62,7 @@ class AnalysisConfig(BaseModel):
     full_share_threshold: float = Field(default=0.3, gt=0, le=1)
     unique_created_min: int = Field(default=5, ge=1)
     timezone: str = DEFAULT_TIMEZONE
+    teacher_author_id: int | None = Field(default=None, ge=0)
     classification: ClassificationConfig = Field(default_factory=ClassificationConfig)
     # Регэкспы (без учёта регистра) имён картинок, похожих на фото/скрин решения.
     suspicious_image_name_patterns: list[str] = Field(

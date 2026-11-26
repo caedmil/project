@@ -257,6 +257,11 @@ def render_json_report(
     }
 
 
+def render_lessons_json_report_text(payload: dict[str, Any]) -> str:
+    """Сериализовать краткий отчёт по занятиям."""
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
 def render_json_report_text(
     parse_result: ParseResult,
     import_mode: ImportMode,
